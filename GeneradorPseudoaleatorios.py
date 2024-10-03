@@ -15,7 +15,7 @@
 #     c es el incremento.
 #     m es el módulo (tamaño del rango).
 
-# X0​ es la semilla inicial.
+import csv
 
 # Parámetros del LCG 
 a = 1664525        # multiplicador
@@ -35,7 +35,9 @@ def lcg(seed, a, c, m, n):
 # Generar 2000 números pseudoaleatorios
 random_numbers = lcg(X0, a, c, m, 2000)
 
-# Guardar la secuencia en un archivo
-with open("pseudo_random_sequence.txt", "w") as f:
+# Guardar la secuencia en un archivo CSV con encabezado "numeros"
+with open("pseudo_random_sequence.csv", "w", newline='') as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerow(["numeros"])  # Escribir el encabezado
     for number in random_numbers:
-        f.write(f"{number}\n")
+        writer.writerow([f"{number:.10f}"])  # Escribir los números con formato de 10 decimales
