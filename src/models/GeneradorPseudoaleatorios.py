@@ -67,10 +67,10 @@ def generate_numbers(n):
 def is_valid_module(a, m):
     # Verificar que a y m sean primos relativos (gcd debe ser 1)
     if math.gcd(a, m) != 1:
-        return is_valid_module(a+1,m), "El multiplicador 'a' no es primo relativo con 'm'."
+        return is_valid_module(a+1,m)
     # Verificar que a no sea múltiplo de 2
     if a % 2 == 0:
-        return is_valid_module(a+1,m), "'a' es múltiplo de 2, lo cual no es adecuado."
+        return is_valid_module(a+1,m)
     #"Los parámetros son válidos."
     return a
 
