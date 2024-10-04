@@ -19,4 +19,4 @@ class Game:
 
     def start(self):
         for i in range(10):
-            self.game
+            self.simulation.start_rount()
