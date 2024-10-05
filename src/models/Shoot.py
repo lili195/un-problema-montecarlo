@@ -33,8 +33,3 @@ def simulate_shoot(gender):
     else:
         result = check_shoot_female(number_shoot)
     return result
-
-
-# # Llamar a la simulación correctamente
-# simulate_shoot("hombre")
-# simulate_shoot("mujer")
