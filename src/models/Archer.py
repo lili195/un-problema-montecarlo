@@ -2,7 +2,7 @@ from Gender import Gender
 from GeneradorPseudoaleatorios import generate_numbers
 from scipy.stats import norm
 from Shoot import *
-from Record_Victories import RecordVictories
+from Bonus_record_shot import BonusRecordShot
 
 class Archer:
     def __init__(self, id):
@@ -19,7 +19,7 @@ class Archer:
         self.extra_shoots = 0
         self.rounds_won = 0
         self.won_bonus = 0
-        self.record_victories = RecordVictories()
+        self.bonus_record_shot = BonusRecordShot()
     
 
     def generate_gender(self):
@@ -54,12 +54,14 @@ class Archer:
     def reset_round_score(self):
         self.round_score = 0
 
-    def won_round(self,rount_number):
-        self.record_victories.increase(rount_number)
+    def won_round(self):
         self.rounds_won += 1
         self.experience += 3
         if self.rounds_won % 3 == 0: 
             self.won_bonus = 2; 
+    
+    def record_bonus(self,rount):
+        self.bonus_record_shot(rount)
     
     def print_info(self):
         print('---------------------------------------------------')

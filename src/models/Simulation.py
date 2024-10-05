@@ -49,11 +49,12 @@ class Simulation:
         
     def additional_shoot(self,team):
         lucky_player = max(team.players, key=lambda x: x.luck)
-        if lucky_player.check_extra_throw():
+        if lucky_player.bonus_record_shot.bonus_number == 2:
             score = lucky_player.simulate_shoot()
             team.increase_score(score)
         score = lucky_player.simulate_shoot()
-        team.increase_score(score)              
+        team.increase_score(score)
+        lucky_player.record_bonus(self.rount_count)              
 
     def simulate_shots(self, team):
         for player in team.players:

@@ -69,4 +69,5 @@ class Game:
         players = self.teamA.players + self.teamB.players
         max_lucky_player  = max(players, key=lambda x: x.luck)
         self.max_lucky.append(max_lucky_player.name)
-        
+
+
