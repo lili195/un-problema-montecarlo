@@ -70,13 +70,3 @@ class Archer:
     
     def record_bonus(self,rount):
         self.bonus_record_shot(rount)
-    
-    def print_info(self):
-        print('---------------------------------------------------')
-        print('INFORMACION DEL ARQUERO')
-        print('---------------------------------------------------')
-        print(f"\nID: {self.id}, \nGENERO: {self.gender}, \nRESISTENCIA: {self.resistance}, \nRESIS ACTUAL: {self.current_resistance}, \nEXPERIENCIA: {self.experience}, \nSUERTE: {self.luck}, \nPUNTAJE: {self.score}, \nRONDA PUNTAJE: {self.round_score}, \nEXTRA LANZAM: {self.extra_shoots}, \nRONDAS GANADAS: {self.rounds_won} ")
-        print('---------------------------------------------------')
-
-Archer(1).print_info()
-print(Archer(1).simulate_shoot())
