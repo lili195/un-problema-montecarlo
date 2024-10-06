@@ -1,73 +1,101 @@
+from Gender import *
+from GeneradorPseudoaleatorios import *
+
 class Simulation:
 
     def __init__(self, teamA, teamB):
         self.teamA = teamA
         self.teamB = teamB
-        self.rount_count = 0
+        self.round_count = 0
+        self.round_number = 0
         self.champion = None
 
-
-    def star_rount(self):
-        self.rount_number += 1
-
+    def start_round(self):
+        self.round_number += 1
+        print(f"RONDA {self.round_number}")
         self.simulate_shots(self.teamA)
         self.simulate_shots(self.teamB)
-        players = self.teamA.players + self.teamB.players
-        champion_player = self.get_champion_player(players)
-        champion_player.won_round()
+        archers = self.teamA.archers + self.teamB.archers
+        champion_archer = self.get_champion_archer(archers)
+        champion_archer.won_round(self.round_number)
+        self.get_champion_team()
 
-    def get_champion_player(self, players):
-        max_score_player = max(players, key=lambda x: x.round_score)
-        max_score_players = [player for player in players if player.round_score == max_score_player.round_score]
+    def get_champion_archer(self, archers):
+        max_score_archer = max(archers, key=lambda x: x.round_score)
+        max_score_archers = [archer for archer in archers if archer.round_score == max_score_archer.round_score]
 
-        if len(max_score_players) > 1: 
-            players = self.solve_tie_players(max_score_players)
-            max_score_player= self.get_champion_player(players)
+        if len(max_score_archers) > 1: 
+            print(f'Empate, tienen que lanzar')
+            archers = self.solve_tie_archers(max_score_archers)
+            max_score_archer= self.get_champion_archer(archers)
 
-        return max_score_player
+        return max_score_archer
 
     def get_champion_team(self):
-        if self.rount_count == 10:
-            if self.teamA.score < self.teamB.score:
-                self.champion = self.teamB
-            elif self.teamA.score > self.teamB.score:
+        if self.round_count == 10:
+            if self.teamA.score > self.teamB.score:
+                print("Gana equipo cara")
                 self.champion = self.teamA
+            elif self.teamA.score > self.teamB.score:
+                print("Gana equipo Sello")
+                self.champion = self.teamB
             else:
+                print("EMPATE")
                 self.champion = None 
-            players = self.teamA.players + self.teamB.players 
-            max(players, key=lambda x: x.rounds_won)
-
+            archers = self.teamA.archers + self.teamB.archers 
+            
+            most_won_archer = max(archers, key=lambda x: x.rounds_won)
+            print(f'El arquero con mas rondas ganadas es {most_won_archer.id}')
         else:
-            self.init_players    
+            self.init_archers()    
 
-    def init_players(self):
-        for player in self.teamA.players + self.teamB.players:
-            player.luck = player.generate_luck()
-            player.round_score = 0
-            player.add_wear()
-            player.current_resistance = player.resistance
+    def init_archers(self):
+        for archer in self.teamA.archers + self.teamB.archers:
+            archer.luck = get_uniform_number(3,1)
+            archer.round_score = 0
+            archer.add_fatigue()
+            archer.current_resistance = archer.resistance
+    
+    def init_game(self):
+        print("Juego reiniciado")
+        for archer in self.teamA.archers + self.teamB.archers:
+            archer.gender = Gender.MALE if get_nums_zero_one() > 0.5 else Gender.FEMALE
+            archer.resistance = get_normal_number()
+            archer.actual_resistance = archer.resistance
+            archer.experience = 10
+            archer.luck = get_uniform_number(3,1)
+            archer.score = 0
+            archer.round_score = 0
+            archer.extra_throws = 0
+            archer.rounds_won = 0
+            archer.won_bonus = 0
+        self.teamA.score = 1
+        self.teamB.score = 2
+        self.round_number = 0
+        self.champion = None
         
     def additional_shoot(self,team):
-        lucky_player = max(team.players, key=lambda x: x.luck)
-        if lucky_player.check_extra_throw():
-            score = lucky_player.simulate_shoot()
-            team.increase_score(score)
-        score = lucky_player.simulate_shoot()
-        team.increase_score(score)              
+        luckiest_archer = max(team.archers, key=lambda x: x.luck)
+        if luckiest_archer.has_extra_shoot():
+            score = luckiest_archer.simulate_shoot()
+            team.update_score(score)
+        score = luckiest_archer.simulate_shoot()
+        team.update_score(score)              
 
     def simulate_shots(self, team):
-        for player in team.players:
-            while player.can_continue_shooting():
-                score = player.toShot()
-                player.add_roundScore(score)
+        for archer in team.archers:
+            while archer.can_continue_shooting():
+                score = archer.simulate_shoot()
+                archer.add_round_score(score)
                 team.update_score(score)
         
         self.additional_shoot(team)
 
-    def solve_tie_players(self,players):
-        for player in players:
-            player.round_score = 0
-            player.round_score = player.simulate_shoot()
-        return players
+    def solve_tie_archers(self,archers):
+        for archer in archers:
+            archer.round_score = 0
+            archer.round_score = archer.simulate_shoot()
+            print(f'{archer.id} lanza, su puntaje es:  {archer.round_score}')
+        return archers
 
               

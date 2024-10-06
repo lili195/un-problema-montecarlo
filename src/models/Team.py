@@ -1,8 +1,8 @@
 class Team:
 
-    def __init__(self, players, id):
+    def __init__(self, id, archers):
         self.id = id
-        self.players = players
+        self.archers = archers
         self.score = 0
 
     def update_score(self, points):
