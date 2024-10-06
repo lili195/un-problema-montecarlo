@@ -19,6 +19,7 @@ class Simulation:
         print(f'La Ronda {self.round_counter} fue ganada por {champion_archer.id}')
         champion_archer.won_round(self.round_counter)
         self.get_champion_team()
+        self.get_status_gender()
 
     def get_champion_archer(self, archers):
         max_score_archer = max(archers, key=lambda x: x.round_score)
@@ -47,7 +48,20 @@ class Simulation:
             most_won_archer = max(archers, key=lambda x: x.rounds_won)
             print(f'El arquero con mas rondas ganadas es {most_won_archer.id}')
         else:
-            self.init_archers()    
+            self.init_archers()
+
+    def get_status_gender(self):
+        women_count_teamA =0
+        women_count_teamB =0
+        for player in self.teamA.archers:
+            if player.gender == Gender.FEMALE:
+                women_count_teamA += 1
+        for player in self.teamB.archers:
+            if player.gender == Gender.FEMALE:
+                women_count_teamB += 1   
+        print(f'El equipo {self.teamA.id} con {women_count_teamA} mujeres y el Equipo {self.teamB.id} con {women_count_teamB} mujeres')             
+
+
 
     def init_archers(self):
         for archer in self.teamA.archers + self.teamB.archers:
