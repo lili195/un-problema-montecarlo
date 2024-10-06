@@ -70,4 +70,3 @@ class Archer:
     
     def record_bonus(self,round):
         self.bonus_record_shot.increase(round)
-        #self.bonus_record_shot(rount)

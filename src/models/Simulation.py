@@ -27,7 +27,7 @@ class Simulation:
             self.menWins += 1
         self.get_champion_team()
         self.get_most_wins_gender()
-        #self.get_status_gender()
+        self.get_status_gender()
 
     def get_champion_archer(self, archers):
         max_score_archer = max(archers, key=lambda x: x.round_score)

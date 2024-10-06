@@ -119,7 +119,7 @@ class Main:
         self.num_simulations = int(self.sim_entry.get())
         print(f"Empezar con {self.num_simulations} simulaciones.")
         self.game = Game(self.num_simulations)
-        print("Puntajes Arqueros: ", self.game.archers_scores)
+        print('SIMULACION FINALIZADA')
         self.plot()
         self.men_count.config(text=f"{self.game.count_men}")
         self.women_count.config(text=f"{self.game.count_women}")
