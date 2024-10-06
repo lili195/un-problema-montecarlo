@@ -1,7 +1,7 @@
 from Gender import Gender
 from scipy.stats import norm
 from Shoot import *
-from Record_Victories import RecordVictories
+from Bonus_record_shot import BonusRecordShot
 
 class Archer:
     def __init__(self, id):
@@ -17,7 +17,7 @@ class Archer:
         self.extra_shoots = 0
         self.rounds_won = 0
         self.won_bonus = 0
-        self.record_victories = RecordVictories()
+        self.bonus_record_shot = BonusRecordShot()
     
 
     def generate_gender(self):
@@ -67,3 +67,17 @@ class Archer:
         if self.rounds_won % 3 == 0: 
             self.won_bonus = 2
             print(f"El {self.id} obtuvo bonificación! (solo -1 resitencia por dos rondas) ")
+            self.won_bonus = 2; 
+    
+    def record_bonus(self,rount):
+        self.bonus_record_shot(rount)
+    
+    def print_info(self):
+        print('---------------------------------------------------')
+        print('INFORMACION DEL ARQUERO')
+        print('---------------------------------------------------')
+        print(f"\nID: {self.id}, \nGENERO: {self.gender}, \nRESISTENCIA: {self.resistance}, \nRESIS ACTUAL: {self.current_resistance}, \nEXPERIENCIA: {self.experience}, \nSUERTE: {self.luck}, \nPUNTAJE: {self.score}, \nRONDA PUNTAJE: {self.round_score}, \nEXTRA LANZAM: {self.extra_shoots}, \nRONDAS GANADAS: {self.rounds_won} ")
+        print('---------------------------------------------------')
+
+Archer(1).print_info()
+print(Archer(1).simulate_shoot())
