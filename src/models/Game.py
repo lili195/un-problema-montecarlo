@@ -45,9 +45,7 @@ class Game:
 
 
     def check_gender_champions(self):
-        print(f'GANADOR: {self.simulation.champion}')
         if self.simulation.champion != None:
-            print(f'GENERO ARQUERO {archer.gender}')
             for archer in self.simulation.champion.archers:
                 if archer.gender == Gender.MALE:
                     self.count_men+=1

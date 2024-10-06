@@ -6,18 +6,17 @@ class Simulation:
     def __init__(self, teamA, teamB):
         self.teamA = teamA
         self.teamB = teamB
-        self.round_count = 0
-        self.round_number = 0
+        self.round_counter = 0
         self.champion = None
 
     def start_round(self):
-        self.round_number += 1
-        print(f"RONDA {self.round_number}")
+        self.round_counter += 1
+        print(f"RONDA {self.round_counter}")
         self.simulate_shots(self.teamA)
         self.simulate_shots(self.teamB)
         archers = self.teamA.archers + self.teamB.archers
         champion_archer = self.get_champion_archer(archers)
-        champion_archer.won_round(self.round_number)
+        champion_archer.won_round(self.round_counter)
         self.get_champion_team()
 
     def get_champion_archer(self, archers):
@@ -32,7 +31,7 @@ class Simulation:
         return max_score_archer
 
     def get_champion_team(self):
-        if self.round_count == 10:
+        if self.round_counter == 10:
             if self.teamA.score > self.teamB.score:
                 print("Gana equipo cara")
                 self.champion = self.teamA
@@ -71,7 +70,7 @@ class Simulation:
             archer.won_bonus = 0
         self.teamA.score = 1
         self.teamB.score = 2
-        self.round_number = 0
+        self.round_counter = 0
         self.champion = None
         
     def additional_shoot(self,team):
