@@ -1,5 +1,4 @@
 from Gender import Gender
-from scipy.stats import norm
 from Shoot import *
 from Bonus_record_shot import BonusRecordShot
 
