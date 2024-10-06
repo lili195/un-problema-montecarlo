@@ -8,6 +8,9 @@ class Simulation:
         self.teamB = teamB
         self.round_counter = 0
         self.champion = None
+        self.genderWon = None
+        self.womenWins = 0
+        self.menWins = 0
 
     def start_round(self):
         self.round_counter += 1
@@ -16,10 +19,15 @@ class Simulation:
         self.simulate_shots(self.teamA)
         archers = self.teamB.archers + self.teamA.archers
         champion_archer = self.get_champion_archer(archers)
-        print(f'La Ronda {self.round_counter} fue ganada por {champion_archer.id}')
+        print(f'La Ronda {self.round_counter} fue ganada por {champion_archer.id}, ({champion_archer.gender.get_gender()})')
         champion_archer.won_round(self.round_counter)
+        if champion_archer.gender == Gender.FEMALE:
+            self.womenWins += 1
+        else:
+            self.menWins += 1
         self.get_champion_team()
-        self.get_status_gender()
+        self.get_most_wins_gender()
+        #self.get_status_gender()
 
     def get_champion_archer(self, archers):
         max_score_archer = max(archers, key=lambda x: x.round_score)
@@ -46,18 +54,32 @@ class Simulation:
             archers = self.teamA.archers + self.teamB.archers 
             
             most_won_archer = max(archers, key=lambda x: x.rounds_won)
-            print(f'El arquero con mas rondas ganadas es {most_won_archer.id}')
+            print(f'Ganador individual es {most_won_archer.id} con {most_won_archer.rounds_won} rondas ganadas')
+        else:
+            self.init_archers()
+
+    def get_most_wins_gender(self):
+        if self.round_counter == 10:
+            if self.womenWins > self.menWins:
+                print(f'Mujeres tienen MAS victorias: {self.womenWins}, hombres: {self.menWins}')
+                self.genderWon = Gender.FEMALE
+            elif self.womenWins < self.menWins:
+                print(f'Mujeres tienen MENOS victorias: {self.womenWins}, hombres: {self.menWins}')
+                self.genderWon = Gender.MALE
+            else:
+                print(f'Empate de vitorias entre mujeres: {self.womenWins}, y hombres: {self.menWins}')
+                self.genderWon = None
         else:
             self.init_archers()
 
     def get_status_gender(self):
         women_count_teamA =0
         women_count_teamB =0
-        for player in self.teamA.archers:
-            if player.gender == Gender.FEMALE:
+        for archer in self.teamA.archers:
+            if archer.gender == Gender.FEMALE:
                 women_count_teamA += 1
-        for player in self.teamB.archers:
-            if player.gender == Gender.FEMALE:
+        for archer in self.teamB.archers:
+            if archer.gender == Gender.FEMALE:
                 women_count_teamB += 1   
         print(f'El equipo {self.teamA.id} con {women_count_teamA} mujeres y el Equipo {self.teamB.id} con {women_count_teamB} mujeres')             
 
@@ -74,13 +96,13 @@ class Simulation:
         print("Juego reiniciado")
         for archer in self.teamA.archers + self.teamB.archers:
             archer.gender = Gender.MALE if get_nums_zero_one() > 0.5 else Gender.FEMALE
-            archer.resistance = get_normal_number()
-            archer.actual_resistance = archer.resistance
+            archer.resistance = round(get_normal_number())
+            archer.current_resistance = archer.resistance
             archer.experience = 10
             archer.luck = get_uniform_number(3,1)
             archer.score = 0
             archer.round_score = 0
-            archer.extra_throws = 0
+            archer.extra_shoots = 0
             archer.rounds_won = 0
             archer.won_bonus = 0
         self.teamA.score = 1

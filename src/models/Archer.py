@@ -68,6 +68,6 @@ class Archer:
             print(f"El {self.id} obtuvo bonificación! (solo -1 resitencia por dos rondas) ")
             self.won_bonus = 2; 
     
-    def record_bonus(self,rount):
+    def record_bonus(self,round):
         self.bonus_record_shot.increase(round)
         #self.bonus_record_shot(rount)

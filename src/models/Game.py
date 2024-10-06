@@ -12,6 +12,7 @@ class Game:
         self.luckiest_archers = []
         self.most_experienced_archers = []
         self.champions_teams_with_scores = []
+        self.winner_gender_per_game = []
         self.archers_scores = []
         self.champions_woman_amount = 0
         self.champions_man_amount = 0
@@ -25,6 +26,7 @@ class Game:
         for i in range(0, num_games):
             self.start()
             self.check_winner()
+            self.check_gender_winner()
             self.update_lucky_list()
             self.update_experience_list()
             self.check_gender_champions()
@@ -66,9 +68,15 @@ class Game:
 
     def check_winner(self): 
         if self.simulation.champion != None:
-            self.champions_teams_with_scores.append(f"El ganador fue {self.simulation.champion.id} con {self.simulation.champion.score} puntos")
+            self.champions_teams_with_scores.append(f"Ganador: {self.simulation.champion.id}; Puntos: {self.simulation.champion.score}")
         else:
             self.champions_teams_with_scores.append(f"Empate con {self.simulation.teamA.score} puntos")
+
+    def check_gender_winner(self): 
+        if self.simulation.genderWon != None:
+            self.winner_gender_per_game.append(f"El genero con mas victorias en el juego #{self.game_count} fue {self.simulation.genderWon.get_gender()}")
+        else:
+            self.winner_gender_per_game.append(f"Empate de los dos generos con {self.simulation.womenWins} victorias cada uno")
     
     def reset_game(self):
         self.game_count+=1

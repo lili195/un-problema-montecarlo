@@ -1,8 +1,8 @@
 from enum import Enum
 
 class Gender(Enum):
-    MALE = 'm'
-    FEMALE = 'f'
+    MALE = 'Hombre'
+    FEMALE = 'Mujer'
 
     def __init__(self, gender):
         self.gender = gender
