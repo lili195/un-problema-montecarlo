@@ -6,8 +6,8 @@ from Gender import *
 class Game: 
 
     def __init__(self, num_games):
-        self.teamA = self.generate_teams("Cara")
         self.teamB = self.generate_teams("Sello")
+        self.teamA = self.generate_teams("Cara")
         self.simulation = Simulation(self.teamA,self.teamB)
         self.luckiest_archers = []
         self.most_experienced_archers = []

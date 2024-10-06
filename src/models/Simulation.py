@@ -12,10 +12,11 @@ class Simulation:
     def start_round(self):
         self.round_counter += 1
         print(f"RONDA {self.round_counter}")
-        self.simulate_shots(self.teamA)
         self.simulate_shots(self.teamB)
-        archers = self.teamA.archers + self.teamB.archers
+        self.simulate_shots(self.teamA)
+        archers = self.teamB.archers + self.teamA.archers
         champion_archer = self.get_champion_archer(archers)
+        print(f'La Ronda {self.round_counter} fue ganada por {champion_archer.id}')
         champion_archer.won_round(self.round_counter)
         self.get_champion_team()
 
@@ -35,7 +36,7 @@ class Simulation:
             if self.teamA.score > self.teamB.score:
                 print("Gana equipo cara")
                 self.champion = self.teamA
-            elif self.teamA.score > self.teamB.score:
+            elif self.teamA.score < self.teamB.score:
                 print("Gana equipo Sello")
                 self.champion = self.teamB
             else:

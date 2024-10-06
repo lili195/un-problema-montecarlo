@@ -60,7 +60,7 @@ class Archer:
         self.round_score = 0
 
     def won_round(self,round_number):
-        self.bonus_record_shot.increase(round_number)
+        #self.bonus_record_shot.increase(round_number)
         self.rounds_won += 1
         self.experience += 3
         if self.rounds_won % 3 == 0: 
@@ -69,4 +69,5 @@ class Archer:
             self.won_bonus = 2; 
     
     def record_bonus(self,rount):
-        self.bonus_record_shot(rount)
+        self.bonus_record_shot.increase(round)
+        #self.bonus_record_shot(rount)
