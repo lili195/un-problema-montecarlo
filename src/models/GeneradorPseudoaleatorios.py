@@ -1,23 +1,23 @@
 import csv
 import random
 import math
-import datetime
+# import datetime
 import numpy as np
 
-# Parámetros del LCG 
-a = 1664525                                         # multiplicador
-c = 111231313                                               # incremento
-m = 2**32                                           # módulo
-X0 = datetime.datetime.now().microsecond            # semilla inicial
+# # Parámetros del LCG 
+# a = 1664525                                         # multiplicador
+# c = 111231313                                       # incremento
+# m = 2**32                                           # módulo
+# X0 = datetime.datetime.now().microsecond            # semilla inicial
 
 #Listas de numeros
 lcg_randomNums = []
 normal_dist_nums = []
 uniform_dist_nums= []
 
-def generate_numbers(n):
-    multiplier = is_valid_module(a,m)
-    return lcg(X0, multiplier, c, m, n)
+# def generate_numbers(n):
+#     multiplier = is_valid_module(a,m)
+#     return lcg(X0, multiplier, c, m, n)
 
 
 def is_valid_module(a, m):

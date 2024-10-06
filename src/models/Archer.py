@@ -66,7 +66,6 @@ class Archer:
         if self.rounds_won % 3 == 0: 
             self.won_bonus = 2
             print(f"El {self.id} obtuvo bonificación! (solo -1 resitencia por dos rondas) ")
-            self.won_bonus = 2; 
     
     def record_bonus(self,round):
         self.bonus_record_shot.increase(round)
