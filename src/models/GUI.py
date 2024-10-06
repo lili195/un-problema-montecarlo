@@ -44,12 +44,12 @@ class GUI:
         self.groups_button = tk.Button(self.frameTop, text="Mostrar equipos ganadores", command=self.show_groups)
         self.groups_button.grid(row=3, column=2, padx=5, pady=5)
 
-        self.player_options = ['J{}'.format(i) for i in range(1, 11)]
+        self.player_options = ['A{}'.format(i) for i in range(1, 11)]
         self.archer_combo = ttk.Combobox(self.frameTop, values=self.player_options, state='readonly')
         self.archer_combo.grid(row=4, column=0, columnspan=3, padx=5, pady=5)
         
         # Establecer J1 como el valor predeterminado
-        self.archer_combo.set('J1')
+        self.archer_combo.set('A1')
 
         # Asociar evento a cambio de selección en el ComboBox
         self.archer_combo.bind("<<ComboboxSelected>>", self.plot)
@@ -92,37 +92,37 @@ class GUI:
             lucky_window = tk.Toplevel(self.root)
             lucky_window.title("Registros de suerte")
 
-            # Crear un widget de texto para mostrar el registro de experiencia
+            # Crear un widget de texto para mostrar el registro de suerte
             lucky_text = tk.Text(lucky_window, height=20, width=50)
             lucky_text.pack()
 
-            # Insertar los registros de experiencia en el widget de texto
+            # Insertar los registros de suerte en el widget de texto
             for record in self.game.luckiest_archers:
                 lucky_text.insert(tk.END, record + "\n")
         else:
-            print("No hay registros de experiencia disponibles")
+            print("No hay registros de suerte disponibles")
 
     def show_groups(self):
         if self.game is not None:
             # Crear una nueva ventana emergente
             teams_window = tk.Toplevel(self.root)
-            teams_window.title("Registros de suerte")
+            teams_window.title("Registros de ganadores")
 
-            # Crear un widget de texto para mostrar el registro de suerte
+            # Crear un widget de texto para mostrar el registro de ganadores
             lucky_text = tk.Text(teams_window, height=20, width=50)
             lucky_text.pack()
 
-            # Insertar los registros de suerte en el widget de texto
+            # Insertar los registros de ganadores en el widget de texto
             for record in self.game.champions_teams_with_scores:
                 lucky_text.insert(tk.END, record + "\n")
         else:
-            print("No hay registros de suerte disponibles")
+            print("No hay registros de ganadores disponibles")
 
     def start_simulation(self):
         self.num_simulations = int(self.sim_entry.get())
         print(f"Empezar con {self.num_simulations} simulaciones.")
         self.game = Game(self.num_simulations)
-        print("Archer Scores: ", self.game.archers_scores)
+        print("Puntajes Arqueros: ", self.game.archers_scores)
         self.plot()
         self.men_count.config(text=f"{self.game.count_men}")
         self.women_count.config(text=f"{self.game.count_women}")
@@ -141,9 +141,9 @@ class GUI:
 
             fig, ax = plt.subplots()
             ax.bar(x, y)  # Cambiar a ax.bar para un gráfico de barras
-            ax.set_title(f'Puntuaciones en cada juego del arquero {selected_value}')
+            ax.set_title(f'Puntajes en cada juego del arquero {selected_value}')
             ax.set_xlabel('Juegos')
-            ax.set_ylabel('Puntuaciones')
+            ax.set_ylabel('Puntajes')
 
             # Clear previous plot if exists
             for widget in self.frameTop.winfo_children():
